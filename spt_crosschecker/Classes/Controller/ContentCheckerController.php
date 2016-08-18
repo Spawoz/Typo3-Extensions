@@ -41,7 +41,9 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
     /**
      * contentCheckerRepository
      *
-     * @var \SPAWOZ\SptCrosschecker\Domain\Repository\ContentCheckerRepository @inject
+     * @var \SPAWOZ\SptCrosschecker\Domain\Repository\ContentCheckerRepository 
+     * 
+     * @inject
      */
     protected $contentCheckerRepository = null;
 
