@@ -47,9 +47,15 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
             $this->setDatabasePassword($extensionConfiguration['remote_password']['value']);
             $this->setDatabaseName($extensionConfiguration['remote_databaseName']['value']);
             $this->link = mysqli_init();
-            $connected = @$this->link->real_connect($host, $this->databaseUsername, $this->databaseUserPassword, null, 
-                (int) $this->databasePort, $this->databaseSocket, 
-                $this->connectionCompression ? MYSQLI_CLIENT_COMPRESS : 0);
+            $connected = @$this->link->real_connect(
+                $host,
+                $this->databaseUsername,
+                $this->databaseUserPassword,
+                null,
+                (int) $this->databasePort,
+                $this->databaseSocket,
+                $this->connectionCompression ? MYSQLI_CLIENT_COMPRESS : 0
+            );
             if ($connected) {
                 return $this;
             } else {
@@ -86,12 +92,18 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
     public function doGetContents($dbObj, $requestParams)
     {
         $queryOptions = [];
-        foreach ($requestParams['externalDbTables'] as $_key => $_value) { 
+        foreach ($requestParams['externalDbTables'] as $_key => $_value) {
             $queryOptions = [];
-         $queryOptions = $this->doPrepareQuery($dbObj, $_value, $requestParams);
+            $queryOptions = $this->doPrepareQuery($dbObj, $_value, $requestParams);
             if (! empty($queryOptions)) {
-                $result = $dbObj->exec_SELECTgetRows($queryOptions['select'], $_value, $queryOptions['where'], 
-                    $groupBy = '', $queryOptions['orderby'], $limit = '');
+                $result = $dbObj->exec_SELECTgetRows(
+                    $queryOptions['select'],
+                    $_value,
+                    $queryOptions['where'],
+                    $groupBy = '',
+                    $queryOptions['orderby'],
+                    $limit = ''
+                );
                 $dataResult[$_value] = $result;
             }
         }
@@ -120,8 +132,8 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
                 case 'modification_date':
                     if (! empty($queryOptions['select'])) {
                         $queryOptions['select'] .= ' , ' . $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
-                        $queryOptions['where'] .= ' OR ' . $_value . '.'.$field.'  BETWEEN ' . $filterDateFrom . ' AND ' .
-                             $filterDateTo;
+                        $queryOptions['where'] .= ' OR ' . $_value . '.'.$field.'  BETWEEN ' .
+                            $filterDateFrom . ' AND ' . $filterDateTo;
                         $queryOptions['orderby'] = $queryOptions['orderby'] . ' , ' . $_value . '.'.$field.' DESC';
                     } else {
                         $queryOptions['select'] = $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
