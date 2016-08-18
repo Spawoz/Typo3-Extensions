@@ -1,0 +1,12 @@
+
+ # Module configuration
+module.tx_sptcrosschecker_tools_sptcrosscheckersptcrosschecker {
+	persistence {
+		storagePid = {$module.tx_sptcrosschecker_sptcrosschecker.persistence.storagePid}
+	}
+	view {
+		templateRootPaths.0 = {$module.tx_sptcrosschecker_sptcrosschecker.view.templateRootPath}
+		partialRootPaths.0 = {$module.tx_sptcrosschecker_sptcrosschecker.view.partialRootPath}
+		layoutRootPaths.0 = {$module.tx_sptcrosschecker_sptcrosschecker.view.layoutRootPath}
+	}
+}
