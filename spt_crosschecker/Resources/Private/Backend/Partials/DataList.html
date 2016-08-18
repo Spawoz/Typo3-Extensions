@@ -25,7 +25,7 @@
 								key="mlang_labels_tableCreateDate" /></strong></th>
 					<th valign="top" colspan="2"><span
 						style="width: 10px; height: 1px; display: inline-block"></span></th>
-						<th><span
+					<th><span
 						style="width: 10px; height: 1px; display: inline-block"></span></th>
 				</tr>
 			</thead>
@@ -41,8 +41,7 @@
 												{content.pid}
 											</f:then>
 											<f:else>
-												<f:translate
-								key="mlang_labels_tableNoData" />
+												<f:translate key="mlang_labels_tableNoData" />
 											</f:else>
 										</f:if>
 
@@ -56,8 +55,7 @@
 												{content.uid}
 											</f:then>
 											<f:else>
-												<f:translate
-								key="mlang_labels_tableNoData" />
+												<f:translate key="mlang_labels_tableNoData" />
 											</f:else>
 										</f:if>
 								</strong></th>
@@ -76,7 +74,15 @@
 												<f:format.date format="d.m.Y-H:i:s">@{content.rangemodification_date}</f:format.date>
 											</f:then>
 											<f:else>
-												<f:format.date format="d.m.Y-H:i:s">@{content.rangecrdate}</f:format.date>
+
+												<f:if condition="{content.rangecrdate}">
+													<f:then>
+														<f:format.date format="d.m.Y-H:i:s">@{content.rangecrdate}</f:format.date>
+													</f:then>
+													<f:else>
+														<f:translate key="mlang_labels_tableNoData" />
+													</f:else>
+												</f:if>
 											</f:else>
 										</f:if></strong></th>
 								<th valign="top" colspan="2"><span
