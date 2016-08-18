@@ -18,8 +18,14 @@
 					<th><span
 						style="width: 10px; height: 1px; display: inline-block"></span></th>
 					<th valign="top" colspan="2"><strong><f:translate
-								key="mlang_labels_tableLastChange" /></strong></th>
+								key="mlang_labels_tableModifiedDate" /></strong></th>
 					<th><span
+						style="width: 10px; height: 1px; display: inline-block"></span></th>
+					<th valign="top" colspan="2"><strong><f:translate
+								key="mlang_labels_tableCreateDate" /></strong></th>
+					<th valign="top" colspan="2"><span
+						style="width: 10px; height: 1px; display: inline-block"></span></th>
+						<th><span
 						style="width: 10px; height: 1px; display: inline-block"></span></th>
 				</tr>
 			</thead>
@@ -29,21 +35,62 @@
 					<f:then>
 						<f:for each="{data}" as="content" key="entry">
 							<tr>
-								<th valign="top"><strong>{content.pid}</strong></th>
+								<th valign="top"><strong> <f:if
+											condition="{content.pid}">
+											<f:then>
+												{content.pid}
+											</f:then>
+											<f:else>
+												<f:translate
+								key="mlang_labels_tableNoData" />
+											</f:else>
+										</f:if>
+
+
+								</strong></th>
 								<th><span
 									style="width: 10px; height: 1px; display: inline-block"></span></th>
-								<th valign="top"><strong>{content.uid}</strong></th>
+								<th valign="top"><strong> <f:if
+											condition="{content.uid}">
+											<f:then>
+												{content.uid}
+											</f:then>
+											<f:else>
+												<f:translate
+								key="mlang_labels_tableNoData" />
+											</f:else>
+										</f:if>
+								</strong></th>
 								<th><span
 									style="width: 10px; height: 1px; display: inline-block"></span></th>
-								<th valign="top" colspan="2"><strong><f:format.date
-											format="d.m.Y-H:i:s">@{content.rangeFiled}</f:format.date></strong></th>
+								<th valign="top" colspan="2"><strong> <f:if
+											condition="{content.rangetstamp}">
+											<f:format.date format="d.m.Y-H:i:s">@{content.rangetstamp}</f:format.date>
+										</f:if>
+								</strong></th>
 								<th><span
+									style="width: 10px; height: 1px; display: inline-block"></span></th>
+								<th valign="top" colspan="2"><strong> <f:if
+											condition="{content.rangemodification_date}">
+											<f:then>
+												<f:format.date format="d.m.Y-H:i:s">@{content.rangemodification_date}</f:format.date>
+											</f:then>
+											<f:else>
+												<f:format.date format="d.m.Y-H:i:s">@{content.rangecrdate}</f:format.date>
+											</f:else>
+										</f:if></strong></th>
+								<th valign="top" colspan="2"><span
+									style="width: 10px; height: 1px; display: inline-block"></span></th>
+								<th valign="top" colspan="2"><span
 									style="width: 10px; height: 1px; display: inline-block"></span></th>
 							</tr>
 						</f:for>
 					</f:then>
 					<f:else>
 						<tr>
+							<th valign="top"><strong></strong></th>
+							<th><span
+								style="width: 10px; height: 1px; display: inline-block"></span></th>
 							<th valign="top"><strong></strong></th>
 							<th><span
 								style="width: 10px; height: 1px; display: inline-block"></span></th>
@@ -54,7 +101,9 @@
 							<th valign="top" colspan="2"><strong></strong></th>
 							<th><span
 								style="width: 10px; height: 1px; display: inline-block"></span></th>
-
+							<th valign="top" colspan="2"><strong></strong></th>
+							<th><span
+								style="width: 10px; height: 1px; display: inline-block"></span></th>
 						</tr>
 					</f:else>
 				</f:if>

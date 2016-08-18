@@ -47,15 +47,9 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
             $this->setDatabasePassword($extensionConfiguration['remote_password']['value']);
             $this->setDatabaseName($extensionConfiguration['remote_databaseName']['value']);
             $this->link = mysqli_init();
-            $connected = @$this->link->real_connect(
-                $host,
-                $this->databaseUsername,
-                $this->databaseUserPassword,
-                null,
-                (int) $this->databasePort,
-                $this->databaseSocket,
-                $this->connectionCompression ? MYSQLI_CLIENT_COMPRESS : 0
-            );
+            $connected = @$this->link->real_connect($host, $this->databaseUsername, $this->databaseUserPassword, null, 
+                (int) $this->databasePort, $this->databaseSocket, 
+                $this->connectionCompression ? MYSQLI_CLIENT_COMPRESS : 0);
             if ($connected) {
                 return $this;
             } else {
@@ -91,46 +85,53 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
      */
     public function doGetContents($dbObj, $requestParams)
     {
-        foreach ($requestParams['externalDbTables'] as $_key => $_value) {
-            $select = "SHOW COLUMNS FROM " . $_value;
-            $res = $dbObj->sql_query($select);
-            while ($row = $dbObj->sql_fetch_assoc($res)) {
-                switch ($row['Field']) {
-                    case 'crdate':
-                        $checkField[$_value] = $row['Field'];
-                        break;
-                    case 'tstamp':
-                        if (! empty($checkField[$_value]) && $checkField[$_value] == 'crdate') {
-                            $checkField[$_value] = 'crdate';
-                        } else {
-                            $checkField[$_value] = $row['Field'];
-                        }
-                        break;
-                    case 'modification_date':
-                        $checkField[$_value] = $row['Field'];
-                        break;
-                }
-            }
-            $filterDateTo = time();
-            if (! empty($requestParams['filterDateTo'])) {
-                $filterDateTo = strtotime($requestParams['filterDateTo']);
-            }
-            $filterDateFrom = strtotime($requestParams['filterDateFrom']);
-            $where_clause = $_value . '.' . $checkField[$_value] . '  BETWEEN ' . $filterDateFrom . ' AND ' .
-                 $filterDateTo;
-            if (! empty($checkField[$_value])) {
-                $select_fields = $_value . '.*,' . $_value . '.' . $checkField[$_value] . ' AS rangeFiled';
-                $result = $dbObj->exec_SELECTgetRows(
-                    $select_fields,
-                    $_value,
-                    $where_clause,
-                    $groupBy = '',
-                    $orderBy = $_value . '.' . $checkField[$_value] . ' DESC',
-                    $limit = ''
-                );
+        $queryOptions = [];
+        foreach ($requestParams['externalDbTables'] as $_key => $_value) { 
+            $queryOptions = [];
+         $queryOptions = $this->doPrepareQuery($dbObj, $_value, $requestParams);
+            if (! empty($queryOptions)) {
+                $result = $dbObj->exec_SELECTgetRows($queryOptions['select'], $_value, $queryOptions['where'], 
+                    $groupBy = '', $queryOptions['orderby'], $limit = '');
                 $dataResult[$_value] = $result;
             }
         }
         return $dataResult;
+    }
+
+    /**
+     * function doPrepareQuery
+     *
+     * @return array
+     */
+    public function doPrepareQuery($dbObj, $_value, $requestParams)
+    {
+        $filterDateTo = time();
+        if (! empty($requestParams['filterDateTo'])) {
+            $filterDateTo = strtotime($requestParams['filterDateTo']);
+        }
+        $filterDateFrom = strtotime($requestParams['filterDateFrom']);
+        $select = "SHOW COLUMNS FROM " . $_value;
+        $res = $dbObj->sql_query($select);
+        while ($row = $dbObj->sql_fetch_assoc($res)) {
+            $field = $row['Field'];
+            switch ($field) {
+                case 'crdate':
+                case 'tstamp':
+                case 'modification_date':
+                    if (! empty($queryOptions['select'])) {
+                        $queryOptions['select'] .= ' , ' . $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
+                        $queryOptions['where'] .= ' OR ' . $_value . '.'.$field.'  BETWEEN ' . $filterDateFrom . ' AND ' .
+                             $filterDateTo;
+                        $queryOptions['orderby'] = $queryOptions['orderby'] . ' , ' . $_value . '.'.$field.' DESC';
+                    } else {
+                        $queryOptions['select'] = $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
+                        $queryOptions['where'] = $_value . '.'.$field.'  BETWEEN ' . $filterDateFrom . ' AND ' .
+                             $filterDateTo;
+                        $queryOptions['orderby'] = $_value . '.'.$field.' DESC';
+                    }
+                    break;
+            }
+        }
+        return $queryOptions;
     }
 }
