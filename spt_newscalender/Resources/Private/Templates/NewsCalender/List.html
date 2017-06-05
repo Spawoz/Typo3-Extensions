@@ -1,0 +1,22 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="main">
+<script>
+	$(document).ready(function() {
+		$('#calendar').fullCalendar({
+                    header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			    },
+			defaultDate:'<f:format.htmlentitiesDecode>{currentDate}</f:format.htmlentitiesDecode>',
+			navLinks: true,
+			editable: true,
+			eventLimit: true,
+                        events: <f:format.htmlentitiesDecode>{newsCalenders}</f:format.htmlentitiesDecode>,
+                });	
+	});
+</script>
+    <div id='calendar'></div>
+</f:section>
+</html>

@@ -1,0 +1,14 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="startDate">
+	<f:translate key="tx_sptnewscalender_domain_model_newscalender.start_date" />
+</label><br />
+	<f:form.textfield property="startDate" value="{newsCalender.startDate->f:format.date()}" /><br />
+<label for="endDate">
+	<f:translate key="tx_sptnewscalender_domain_model_newscalender.end_date" />
+</label><br />
+	<f:form.textfield property="endDate" /><br />
+<label for="title">
+	<f:translate key="tx_sptnewscalender_domain_model_newscalender.title" />
+</label><br />
+	<f:form.textfield property="title" /><br />
+</html>
