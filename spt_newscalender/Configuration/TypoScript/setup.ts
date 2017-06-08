@@ -54,17 +54,15 @@ plugin.tx_sptnewscalender._CSS_DEFAULT_STYLE (
     }
 )
 page.includeCSS {
-  css100 = EXT:spt_newscalender/Resources/Public/Css/fullcalendar.min.css
-  css100.media = all
-  css200 = EXT:spt_newscalender/Resources/Public/Css/fullcalendar.print.min.css
-  css200.media = all
-  css300 = EXT:spt_newscalender/Resources/Public/Css/fullcalendar.css
-  css300.media = all  
+    css100 = EXT:spt_newscalender/Resources/Public/Css/fullcalendar.min.css
+    css100.media = all
+    css200 = EXT:spt_newscalender/Resources/Public/Css/fullcalendar.css
+    css200.media = all  
 }
 [globalVar = LIT:1 = {$plugin.tx_sptnewscalender_newscalender.settings.addJQueryLibrary}]
     page.includeJSFooterlibs.newscalJQueryLib = EXT:spt_newscalender/Resources/Public/Js/jquery.min.js
 [end]
 page.includeJSFooter {
-  js1 = EXT:spt_newscalender/Resources/Public/Js/moment.min.js
-  js2 = EXT:spt_newscalender/Resources/Public/Js/fullcalendar.min.js
+    js1 = EXT:spt_newscalender/Resources/Public/Js/moment.min.js
+    js2 = EXT:spt_newscalender/Resources/Public/Js/fullcalendar.min.js
 }

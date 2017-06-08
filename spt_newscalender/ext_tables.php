@@ -1,8 +1,11 @@
 <?php
 
-if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
-}
+defined('TYPO3_MODE') || die('Access denied.');
+
+call_user_func(
+    function($extKey)
+    {
+
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'TYPO3.SptNewscalender',
@@ -14,6 +17,9 @@ if (!defined('TYPO3_MODE')) {
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_sptnewscalender_domain_model_newscalender', 'EXT:spt_newscalender/Resources/Private/Language/locallang_csh_tx_sptnewscalender_domain_model_newscalender.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_sptnewscalender_domain_model_newscalender');
+           },
+    $_EXTKEY
+);
         $pluginSignature = str_replace('_', '', $_EXTKEY) . '_' . 'newscalender';
         $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(

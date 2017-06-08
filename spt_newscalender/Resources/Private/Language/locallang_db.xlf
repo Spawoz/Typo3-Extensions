@@ -4,10 +4,10 @@
 		<header/>
 		<body>
 			<trans-unit id="tx_spt_newscalender_domain_model_newscalender">
-				<source>newsCalender</source>
+				<source>News Calendar</source>
 			</trans-unit>
 			<trans-unit id="tx_spt_newscalender_domain_model_newscalender.description">
-				<source></source>
+				<source>Display news/event articles in jquery responsive calender view.</source>
 			</trans-unit>
 			<trans-unit id="tx_sptnewscalender_domain_model_newscalender">
 				<source>News Calender</source>
