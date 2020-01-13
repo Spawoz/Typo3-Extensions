@@ -1,0 +1,25 @@
+/* h1 {
+	color: red !important;
+} */
+
+.exportForm {
+	position: relative;
+}
+
+.btn.btn-primary,
+.btn.btn-primary:focus,
+.btn.btn-primary:hover,
+.btn.btn-primary:active {
+	background-color: transparent;
+	border: 0;
+	outline: none;
+	position: absolute;
+	top: 12px;
+	right: 0;
+}
+
+.btn.btn-primary img {
+	max-width: 35px;
+	width: 35px;
+	height: auto;
+}
