@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-12-09T18:38:12Z" product-name="spt_socialmedia">
+		<header/>
+		<body>
+			<trans-unit id="tx_spt_socialmedia_domain_model_sptsocialmedia">
+				<source>Social Media Widget</source>
+			</trans-unit>
+			<trans-unit id="tx_spt_socialmedia_domain_model_sptsocialmedia.description">
+				<source>Extension to manage social media widgets.</source>
+			</trans-unit>
+			<trans-unit id="title.description">
+				<source>title</source>
+			</trans-unit>
+			<trans-unit id="type.description">
+				<source>type</source>
+			</trans-unit>
+			<trans-unit id="link.description">
+				<source>link</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
