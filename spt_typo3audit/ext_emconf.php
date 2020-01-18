@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'TYPO3 Audit',
-    'description' => 'Extension for TYPO3 website audit',
+    'description' => 'Extension can be used to analyse a complete TYPO3 website system overview and it can be used to understand the server details and the extensions installed and their compatibility which are installed in the system. It is also possible to save this report as a PDF file.',
     'category' => 'module',
     'module' => '',
     'author' => 'Arun Chandran',
