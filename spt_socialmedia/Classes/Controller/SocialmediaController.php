@@ -14,6 +14,9 @@ namespace SPT\SptSocialmedia\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Core\Utility\MathUtility;
+
 
 /**
  * SocialmediaController
@@ -47,7 +50,10 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 }
             }
             if ( $value->getType() == 'link' || $value->getType() == 'file-o' ) {
-                $linkData[0] = $this->controllerContext->getUriBuilder()->reset()->setTargetPageUid($linkData[0])->buildFrontendUri();
+                $this->uriBuilder->reset()->buildFrontendUri();
+                if (MathUtility::canBeInterpretedAsInteger($linkData[0])) {
+                    $linkData[0] = $this->uriBuilder->setTargetPageUid((int)$linkData[0]);
+                }
             }
             if ( $linkData[1] ) {
                 $socialicons .= "'".$value->getType()."': { class: '".$value->getType()."', use: true, link: '".$linkData[0]."', extras: 'target=_blank', title: '".$value->getTitle()."'},";
@@ -63,13 +69,6 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 });
             });            
         ";
-        // Include JS and CSS files        
-        $this->pageRenderer->addCssFile(ExtensionManagementUtility::siteRelPath('spt_socialmedia').'Resources/Public/Css/socialwidget.css');
-        $this->pageRenderer->addCssFile(ExtensionManagementUtility::siteRelPath('spt_socialmedia').'Resources/Public/Css/font-awesome/css/font-awesome.min.css');
-        if ( $this->settings['includeJSLib'] ) {
-            $this->pageRenderer->addJsFile(ExtensionManagementUtility::siteRelPath('spt_socialmedia').'Resources/Public/Js/jquery.min.js', 'text/javascript', '', true);  
-        }
-        $this->pageRenderer->addJsFooterFile(ExtensionManagementUtility::siteRelPath('spt_socialmedia').'Resources/Public/Js/socialwidget.js');
         $this->pageRenderer->addFooterData('<script type="text/javascript">'.$socialmediaAttributes.'</script>');
         $this->view->assign('socialmedias', $socialmedias);
     }

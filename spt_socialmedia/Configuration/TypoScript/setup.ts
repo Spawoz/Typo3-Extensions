@@ -70,3 +70,15 @@ page.99999 {
         }
     }
 }
+
+#include  and css
+page.includeCSS {
+    filecss = EXT:spt_socialmedia/Resources/Public/Css/socialwidget.css
+    filecss1 = EXT:spt_socialmedia/Resources/Public/Css/font-awesome/css/font-awesome.min.css
+}
+
+#include Js
+page.includeJSFooter {
+    file = EXT:spt_socialmedia/Resources/Public/Js/jquery.min.js
+    file1 = EXT:spt_socialmedia/Resources/Public/Js/socialwidget.js
+}
