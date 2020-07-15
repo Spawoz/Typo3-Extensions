@@ -29,13 +29,13 @@ Content Cross Checker
 		content, crosscheck, mismatch, remote, database, filter, last modified, crdate, tstamp
 
 	:Copyright:
-		2016
+		2020
 
 	:Author:
-		Abin Sabu
+		Arun Chandran
 
 	:Email:
-		info@spawoz.com
+		arun@spawoz.com
 
 	:License:
 		This document is published under the Open Content License

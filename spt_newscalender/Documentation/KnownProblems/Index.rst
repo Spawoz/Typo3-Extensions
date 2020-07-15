@@ -13,6 +13,6 @@ Known Problems
 
 Report bug / feature request;
 
-Forge: https://forge.typo3.org/projects/extension-spt_newscalender
+GIT: https://github.com/Spawoz/Typo3-Extensions/issues
 
-Email: merin@spawoz.com
+Email: arun@spawoz.com

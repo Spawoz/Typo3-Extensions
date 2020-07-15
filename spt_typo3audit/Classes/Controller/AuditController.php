@@ -5,6 +5,7 @@ use TYPO3\CMS\Extensionmanager\Utility\ListUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as Localize;
 use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -15,8 +16,8 @@ use \SPT\SptTypo3audit\Domain\Repository\AuditRepository as AuditRepository;
 use Mpdf;
 use Dompdf\Dompdf; 
 
-// require_once $_SERVER['DOCUMENT_ROOT'].'typo3conf/ext/spt_typo3audit/Classes/Library/dompdf/autoload.inc.php'; 
-include PATH_typo3conf.'ext/spt_typo3audit/Classes/Library/dompdf/autoload.inc.php'; 
+require_once $_SERVER['DOCUMENT_ROOT'].'/typo3conf/ext/spt_typo3audit/Classes/Library/dompdf/autoload.inc.php'; 
+// include PATH_typo3conf.'ext/spt_typo3audit/Classes/Library/dompdf/autoload.inc.php'; 
 
 /***
  *
@@ -39,7 +40,7 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * auditRepository
      *
      * @var \SPT\SptTypo3audit\Domain\Repository\AuditRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $auditRepository;
     
@@ -76,12 +77,12 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $sysDetail['Total_Lang']= $language;
         $typo3ver = strstr(VersionNumberUtility::getNumericTypo3Version(), ".",true );
         $typo3Config=$this->getVersioning();
-        $extensionsList = $this->getAllExtensions($sysDetail['Typo3_Version']);        
+        $extensionsList = $this->getAllExtensions($sysDetail['Typo3_Version']);
         $arrDetails = array("sysDetail" => $sysDetail, 
                             "extensions" => $extensionsList, 
                             "serverDetails" => $typo3Config[$typo3ver.".x"]
                         );
-        $currentYear = date('Y',time());     
+        $currentYear = date('Y',time());
         $this->view->assignMultiple([
                                 'arrDetails' => $arrDetails,
                                 'files' => $includedFiles,
@@ -116,7 +117,7 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $baseUrlToBackend = $this->request->getBaseUri();
         $baseUrl = str_replace('typo3/','',$baseUrlToBackend);
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $extPath = ExtensionManagementUtility::siteRelPath($this->request->getControllerExtensionKey());
+        $extPath = PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->request->getControllerExtensionKey()));
         $prefixPath = $baseUrl.$extPath;
         $styleCss = $prefixPath.'Resources/Public/Css/style.css';
         $auditJs = $prefixPath.'Resources/Public/Js/audit.js';
@@ -361,7 +362,7 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $overviewReport = array();
         //Get extension list
         $myExtList = $this->objectManager->get(ListUtility::class);
-        $allExtensions = $myExtList->getAvailableAndInstalledExtensionsWithAdditionalInformation();        
+        $allExtensions = $myExtList->getAvailableAndInstalledExtensionsWithAdditionalInformation();
         foreach ($allExtensions as $extensionKey => $spExt) {            
             //Filter all local extension for whole TER data start            
             if (strtolower($spExt['type']) == 'local' && $spExt['key']!='spt_typo3audit') {

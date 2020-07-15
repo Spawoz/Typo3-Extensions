@@ -71,7 +71,7 @@
           // Insert the links
           var sIcon = '<i class="fa fa-' + bs.icon + '"></i>',
             sButton = '<a href="' + sLink +
-              '" class="contact-button-link cb-ancor ' + bs.class + '" ' +
+              '" target="_blank" class="contact-button-link cb-ancor ' + bs.class + '" ' +
               (bs.title ? 'title="' + bs.title + '"' : '') +
               (bs.extras ? bs.extras : '') +
               '>' + sIcon + '</a>';

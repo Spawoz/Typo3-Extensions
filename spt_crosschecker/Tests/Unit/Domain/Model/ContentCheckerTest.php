@@ -5,7 +5,7 @@ namespace SPAWOZ\SptCrosschecker\Tests\Unit\Domain\Model;
  * *************************************************************
  * Copyright notice
  *
- * (c) 2016
+ * (c) 2020
  *
  * All rights reserved
  *

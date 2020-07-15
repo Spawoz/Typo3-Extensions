@@ -1,12 +1,17 @@
 <?php
 namespace SPAWOZ\SptCrosschecker\Domain\Repository;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+
+// \TYPO3\CMS\Core\Database\DatabaseConnection
+
 /**
  * *************************************************************
  *
  * Copyright notice
  *
- * (c) 2016
+ * (c) 2020
  *
  * All rights reserved
  *
@@ -31,7 +36,7 @@ namespace SPAWOZ\SptCrosschecker\Domain\Repository;
 /**
  * The repository for ContentCheckers
  */
-class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnection
+class ContentCheckerRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
     /**
@@ -40,28 +45,16 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
      * @return Object
      */
     public function getConnected($extensionConfiguration)
-    {
-        if (! $this->isConnected) {
-            $this->setDatabaseHost($extensionConfiguration['remote_hostName']['value']);
-            $this->setDatabaseUsername($extensionConfiguration['remote_userName']['value']);
-            $this->setDatabasePassword($extensionConfiguration['remote_password']['value']);
-            $this->setDatabaseName($extensionConfiguration['remote_databaseName']['value']);
-            $this->link = mysqli_init();
-            $connected = @$this->link->real_connect(
-                $host,
-                $this->databaseUsername,
-                $this->databaseUserPassword,
-                null,
-                (int) $this->databasePort,
-                $this->databaseSocket,
-                $this->connectionCompression ? MYSQLI_CLIENT_COMPRESS : 0
-            );
-            if ($connected) {
-                return $this;
-            } else {
-                return false;
-            }
-        }
+    {   
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['External'] = $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['Default'];
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['External']['dbname'] = $extensionConfiguration['remote_databaseName'];
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['External']['host'] = $extensionConfiguration['remote_hostName'];
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['External']['password'] = $extensionConfiguration['remote_password'];
+        $GLOBALS['TYPO3_CONF_VARS']['DB']['Connections']['External']['user'] = $extensionConfiguration['remote_userName'];
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionByName('External')->createQueryBuilder();
+        
+        return $connection;
     }
 
     /**
@@ -71,17 +64,16 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
      */
     public function doGetTableList($dbObj, $extensionConfiguration)
     {
-        try {
-            $select = "SHOW TABLES FROM " . $extensionConfiguration['remote_databaseName']['value'];
-            $res = $dbObj->sql_query($select);
-            while ($row = $dbObj->sql_fetch_assoc($res)) {
-                $tableValue = array_values($row);
-                $tableList[$tableValue[0]] = $tableValue[0];
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+        ->getConnectionByName('External');
+            $res = $connection->query('show tables')->fetchall();
+            $i = 0;
+            while ($i < count($res)) {
+                $tableValue = $res[$i]['Tables_in_'.$extensionConfiguration['remote_databaseName']];
+                $tableList[] = $tableValue;
+                $i = $i+1;
             }
             return $tableList;
-        } catch (\TYPO3\CMS\Fluid\Core\ViewHelper\Exception $exception) {
-            throw new \TYPO3\CMS\Fluid\Core\ViewHelper\Exception($exception->getMessage());
-        }
     }
 
     /**
@@ -89,21 +81,22 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
      *
      * @return array
      */
-    public function doGetContents($dbObj, $requestParams)
+    public function doGetContents($dbObj, $requestParams, $dbList)
     {
         $queryOptions = [];
         foreach ($requestParams['externalDbTables'] as $_key => $_value) {
             $queryOptions = [];
-            $queryOptions = $this->doPrepareQuery($dbObj, $_value, $requestParams);
+            $queryOptions = $this->doPrepareQuery($dbObj, $_value, $requestParams ,$dbList[$_value]);
             if (! empty($queryOptions)) {
-                $result = $dbObj->exec_SELECTgetRows(
-                    $queryOptions['select'],
-                    $_value,
-                    $queryOptions['where'],
-                    $groupBy = '',
-                    $queryOptions['orderby'],
-                    $limit = ''
-                );
+                $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable($dbList[$_value]);
+                $queryBuilder = $connection->createQueryBuilder();
+                $result = $queryBuilder->select('tstamp AS rangetstamp', 'crdate AS rangecrdate', 'uid', 'pid')
+                        ->from($dbList[$_value])
+                        ->where($queryOptions['where'])
+                        ->orderBy('tstamp',' DESC')
+                        ->execute()
+                        ->fetchall();
                 $dataResult[$_value] = $result;
             }
         }
@@ -115,34 +108,38 @@ class ContentCheckerRepository extends \TYPO3\CMS\Core\Database\DatabaseConnecti
      *
      * @return array
      */
-    public function doPrepareQuery($dbObj, $_value, $requestParams)
+    public function doPrepareQuery($dbObj, $_value, $requestParams, $table)
     {
         $filterDateTo = time();
         if (! empty($requestParams['filterDateTo'])) {
             $filterDateTo = strtotime($requestParams['filterDateTo']);
         }
         $filterDateFrom = strtotime($requestParams['filterDateFrom']);
-        $select = "SHOW COLUMNS FROM " . $_value;
-        $res = $dbObj->sql_query($select);
-        while ($row = $dbObj->sql_fetch_assoc($res)) {
-            $field = $row['Field'];
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable($table);
+        $i = 0;
+        $select = "SHOW COLUMNS FROM " . $table;
+        $res = $queryBuilder->query($select)->fetchall();
+        while ($i < count($res)) {
+            $field = $res[$i]['Field'];
             switch ($field) {
                 case 'crdate':
                 case 'tstamp':
                 case 'modification_date':
                     if (! empty($queryOptions['select'])) {
-                        $queryOptions['select'] .= ' , ' . $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
-                        $queryOptions['where'] .= ' OR ' . $_value . '.'.$field.'  BETWEEN ' .
+                        $queryOptions['select'] .= ', '.$field;
+                        $queryOptions['where'] .= ' OR  '.$field.'  BETWEEN ' .
                             $filterDateFrom . ' AND ' . $filterDateTo;
-                        $queryOptions['orderby'] = $queryOptions['orderby'] . ' , ' . $_value . '.'.$field.' DESC';
+                        $queryOptions['orderby'] = $queryOptions['orderby'] . ' , '.$field.' DESC';
                     } else {
-                        $queryOptions['select'] = $_value . '.*,' . $_value . '.'.$field.' AS range'.$field;
-                        $queryOptions['where'] = $_value . '.'.$field.'  BETWEEN ' . $filterDateFrom . ' AND ' .
+                        $queryOptions['select'] = ''.$field;
+                        $queryOptions['where'] = $field.'  BETWEEN ' . $filterDateFrom . ' AND ' .
                              $filterDateTo;
-                        $queryOptions['orderby'] = $_value . '.'.$field.' DESC';
+                        $queryOptions['orderby'] =$field.' DESC';
                     }
                     break;
             }
+            $i = $i + 1;
         }
         return $queryOptions;
     }

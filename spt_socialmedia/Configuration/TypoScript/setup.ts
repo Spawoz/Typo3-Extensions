@@ -19,7 +19,7 @@ plugin.tx_sptsocialmedia_sptsocialmedia {
     #callDefaultActionIfActionCantBeResolved = 1
   }
   settings {
-    includeJSLib = {$plugin.tx_sptsocialmedia_sptsocialmedia.settings.includeJSLib}
+    includeJSLib = 0
   }
 }
 

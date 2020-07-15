@@ -4,13 +4,17 @@ namespace SPAWOZ\SptCrosschecker\Controller;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * *************************************************************
  *
  * Copyright notice
  *
- * (c) 2016
+ * (c) 2020
  *
  * All rights reserved
  *
@@ -43,7 +47,7 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      *
      * @var \SPAWOZ\SptCrosschecker\Domain\Repository\ContentCheckerRepository
      *
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $contentCheckerRepository = null;
 
@@ -57,7 +61,7 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
     /**
      * extensionConfiguration
      *
-     * @var TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility
+     * @var \TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility 
      */
     protected $extensionConfiguration = null;
 
@@ -90,7 +94,6 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
                 $storeInSession = false
             );
         }
-        
         $this->view->assignMultiple(
             [
                 'dbList' => $dbList,
@@ -116,7 +119,7 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
                 $this->remoteDatabseObject,
                 $this->extensionConfiguration
             );
-            $listData = $this->contentCheckerRepository->doGetContents($this->remoteDatabseObject, $filterFormArr);
+            $listData = $this->contentCheckerRepository->doGetContents($this->remoteDatabseObject, $filterFormArr, $dbList);
             $this->doGetFilterForm();
         } else {
             $this->addFlashMessage(
@@ -146,9 +149,7 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      */
     public function doGetFilterForm()
     {
-        $doc = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Backend\\Template\\DocumentTemplate');
-        $pageRenderer = $doc->getPageRenderer();
-        $pageRenderer->loadExtJS();
+        $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/Backend/DateTimePicker');
         return true;
     }
@@ -160,7 +161,6 @@ class ContentCheckerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionC
      */
     public function getConfiguartions()
     {
-        $configurationUtility = $this->objectManager->get('TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility');
-        $this->extensionConfiguration = $configurationUtility->getCurrentConfiguration('spt_crosschecker');
+        $this->extensionConfiguration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['spt_crosschecker'];
     }
 }

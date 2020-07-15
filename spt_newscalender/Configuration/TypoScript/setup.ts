@@ -18,7 +18,9 @@ plugin.tx_sptnewscalender_newscalender {
   mvc {
     #callDefaultActionIfActionCantBeResolved = 1
   }
-  
+  settings {
+    addJQuery = 0
+  }
 }
 
 plugin.tx_sptnewscalender._CSS_DEFAULT_STYLE (

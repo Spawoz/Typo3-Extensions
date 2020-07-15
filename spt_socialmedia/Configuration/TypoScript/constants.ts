@@ -12,7 +12,4 @@ plugin.tx_sptsocialmedia_sptsocialmedia {
     # cat=plugin.tx_sptsocialmedia_sptsocialmedia//a; type=string; label=Default storage PID
     storagePid =
   }
-  settings {
-    includeJSLib = 0
-  }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace TYPO3\SptNewscalender\Controller;
 
-
 /***
  *
  * This file is part of the "News Calender" Extension for TYPO3 CMS.
@@ -9,10 +8,13 @@ namespace TYPO3\SptNewscalender\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2017 Merin Vincent <merin@spawoz.com>, Spawoz Technologies
+ *  (c) 2020 Arun Chandran <arun@spawoz.com>, Spawoz Technologies
  *
  ***/
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 /**
  * NewsCalenderController
@@ -23,7 +25,7 @@ class NewsCalenderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
      * newsCalenderRepository
      *
      * @var \TYPO3\SptNewscalender\Domain\Repository\NewsCalenderRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $newsCalenderRepository = null;
     
@@ -33,7 +35,7 @@ class NewsCalenderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
      * @return void
      */
     public function listAction()
-    {        
+    { 
       $newsCalenders = $this->newsCalenderRepository->getValue();
       $detailPageId = $this->settings['detailPid'];
       $currentDate = date("Y-m-d");
@@ -59,27 +61,41 @@ class NewsCalenderController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCon
                     $persistenceManager->persistAll();
                     if($endDate >= $startDate) {
                         if($newsCalender['repeat_news'] == 0) {
-                            $news[] = [title => $newsCalender['title'], start => $startDate, end => $endDate, url => $url];
+                            $news[] = ['title' => $newsCalender['title'], 'start' => $startDate, 'end' => $endDate, 'url' => $url];
                         }
                         else {
-                            $news[] = [id => $newsCalender['uid'], title => $newsCalender['title'], start => $startDate, url => $url];
+                            $news[] = ['id' => $newsCalender['uid'], 'title' => $newsCalender['title'], 'start' => $startDate, 'url' => $url];
                             while (strtotime($startDate) <= strtotime("-7 days", strtotime($endDate))) {     
                                 $startDate = date ("Y-m-d", strtotime("+7 days", strtotime($startDate)));
-                                $news[] = [id => $newsCalender['uid'], title => $newsCalender['title'], start => $startDate, url => $url];  
+                                $news[] = ['id' => $newsCalender['uid'], 'title' => $newsCalender['title'], 'start' => $startDate, 'url' => $url];  
                             }
                         }
                     } else {
                         if($newsCalender['repeat_news'] == 0) {
-                            $news[] = [start => $startDate, title => $newsCalender['title'], url => $url];
+                            $news[] = ['start' => $startDate, 'title' => $newsCalender['title'], 'url' => $url];
                         }
                         else {
-                            $news[] = [id => $newsCalender['uid'], title => $newsCalender['title'], start => $startDate,url => $url];
+                            $news[] = ['id' => $newsCalender['uid'], 'title' => $newsCalender['title'], 'start' => $startDate, 'url' => $url];
                         }
                     }
                     $filterNews = array_filter($news);
                 }
             }
         }
+        $extPath = PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->request->getControllerExtensionKey()));
+        $pageRenderer = GeneralUtility::makeInstance("TYPO3\\CMS\\Core\\Page\\PageRenderer");
+        $jqueryScript = $extPath . 'Resources/Public/Js/jquery.min.js';
+        $styleCss = $extPath.'Resources/Public/Css/fullcalendar.min.css';
+        $fullcalenderJs = $extPath.'Resources/Public/Js/fullcalendar.min.js';
+        $momentJs = $extPath . 'Resources/Public/Js/moment.min.js';
+        $newscalenderJs = $extPath . 'Resources/Public/Js/newscalender.js';
+        $pageRenderer->addCssFile($styleCss);
+        if($this->settings['addJQuery'] == 1) {
+            $pageRenderer->addJsFooterFile($jqueryScript);
+        }
+        $pageRenderer->addJsFooterFile($momentJs);
+        $pageRenderer->addJsFooterFile($newscalenderJs);
+        $pageRenderer->addJsFooterFile($fullcalenderJs);
         $newsCalender = json_encode($filterNews);
         $this->view->assignMultiple(array('newsCalenders' => $newsCalender, 'currentDate' => $currentDate));
     }

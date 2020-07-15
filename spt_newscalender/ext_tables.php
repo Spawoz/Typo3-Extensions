@@ -3,7 +3,7 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function($extKey)
+    function()
     {
 
 
@@ -13,17 +13,16 @@ call_user_func(
             'newsCalender'
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript', 'News Calender');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('spt_newscalender', 'Configuration/TypoScript', 'News Calender');
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_sptnewscalender_domain_model_newscalender', 'EXT:spt_newscalender/Resources/Private/Language/locallang_csh_tx_sptnewscalender_domain_model_newscalender.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_sptnewscalender_domain_model_newscalender');
-           },
-    $_EXTKEY
+           }
 );
-        $pluginSignature = str_replace('_', '', $_EXTKEY) . '_' . 'newscalender';
-        $TCA['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
+        $pluginSignature = str_replace('_', '', 'spt_newscalender') . '_' . 'newscalender';
+        $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist'][$pluginSignature] = 'pi_flexform';
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-	    $pluginSignature,'FILE:EXT:' . $_EXTKEY . '/Configuration/Flexform/news.xml'
+	    $pluginSignature,'FILE:EXT:spt_newscalender/Configuration/Flexform/news.xml'
         );
     $tempColumns = array(
         'repeat_news' => [

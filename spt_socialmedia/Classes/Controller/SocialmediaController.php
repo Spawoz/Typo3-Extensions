@@ -16,6 +16,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject;
 use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
 
 
 /**
@@ -27,7 +28,7 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * socialmediaRepository
      *
      * @var \SPT\SptSocialmedia\Domain\Repository\SocialmediaRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $socialmediaRepository = null;
 
@@ -61,6 +62,7 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 $socialicons .= "'".$value->getType()."': { class: '".$value->getType()."', use: true, link: '".$linkData[0]."', title: '".$value->getTitle()."'},";    
             }            
         }
+        $extPath = PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath($this->request->getControllerExtensionKey()));
         $socialmediaAttributes = "
             $(document).ready(function(){
                 $.contactButtons({
@@ -69,6 +71,16 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
                 });
             });            
         ";
+        $socialCss = $extPath.'Resources/Public/Css/socialwidget.css';
+        $fontAwsomeCss = $extPath.'Resources/Public/Css/font-awesome/css/font-awesome.min.css';
+        $jqueryScript = $extPath . 'Resources/Public/Js/jquery.min.js';
+        $socialScript = $extPath . 'Resources/Public/Js/socialwidget.js';
+        $this->pageRenderer->addCssFile($socialCss);
+        $this->pageRenderer->addCssFile($fontAwsomeCss);
+        if($this->settings['includeJSLib'] == 1) {
+            $this->pageRenderer->addJsFooterFile($jqueryScript);
+        }
+        $this->pageRenderer->addJsFooterFile($socialScript);
         $this->pageRenderer->addFooterData('<script type="text/javascript">'.$socialmediaAttributes.'</script>');
         $this->view->assign('socialmedias', $socialmedias);
     }

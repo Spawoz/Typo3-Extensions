@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-05-26T12:31:07Z" product-name="spt_newscalender">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-07-15T08:00:07Z" product-name="spt_newscalender">
 		<header/>
 		<body>
 			<trans-unit id="tx_spt_newscalender_domain_model_newscalender">

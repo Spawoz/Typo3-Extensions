@@ -8,7 +8,7 @@ namespace TYPO3\SptNewscalender\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2017 Merin Vincent <merin@spawoz.com>, Spawoz Technologies
+ *  (c) 2020 Arun Chandran <arun@spawoz.com>, Spawoz Technologies
  *
  ***/
 

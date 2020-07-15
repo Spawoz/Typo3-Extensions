@@ -16,6 +16,7 @@
 
 body .fc { /* extra precedence to overcome jqui */
 	font-size: 1em;
+	padding: 40px;
 }
 
 
@@ -1410,4 +1411,20 @@ be a descendant of the grid when it is being dragged.
 
 .fc-unthemed .fc-list-empty { /* theme will provide own background */
 	background-color: #eee;
+}
+
+.fc-today-button {
+    text-transform: capitalize;
+}
+
+.fc-month-button {
+    text-transform: capitalize;
+}
+
+.fc-basicWeek-button {
+    text-transform: capitalize;
+}
+
+.fc-basicDay-button {
+    text-transform: capitalize;
 }

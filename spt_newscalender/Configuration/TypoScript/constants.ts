@@ -13,6 +13,6 @@ plugin.tx_sptnewscalender_newscalender {
     storagePid =
   }
 settings {
-    addJQueryLibrary = 1
+    addJQueryLibrary = 0
   }
 }

@@ -17,7 +17,7 @@ call_user_func(
                 ],
                 [
                     'access' => 'user,group',
-                    'icon'   => 'EXT:spt_typo3audit/Resources/Public/Icons/ext_icons.svg',
+                    'icon'   => 'EXT:spt_typo3audit/ext_icon.gif',
                     'labels' => 'LLL:EXT:spt_typo3audit/Resources/Private/Language/locallang_spttypo3audit.xlf',
                     'navigationComponentId' => '',
                 ]
