@@ -136,7 +136,7 @@
 						<tr {f:if(condition: '{audit.current} == {audit.required}' , then: 'class="active"' )}>
 							<td style="border:1px solid #555c6a;text-align: left;padding: 5px;width: 50%;">
 								<replace:StrReplace string="{key}" searchFor="_" replaceWith=" " />
-								<f:if condition="{audit.current} >= {audit.required}">
+								<f:if condition="{audit.tempCur} >= {audit.tempReq}">
 									<f:then>
 										<img style="float: right; "
 											src="{documentRoot}/typo3conf/ext/spt_typo3audit/Resources/Public/Icons/green.jpg"

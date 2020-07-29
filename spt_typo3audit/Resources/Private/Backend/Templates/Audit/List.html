@@ -59,7 +59,7 @@
 		<f:for each="{arrDetails.serverDetails}" key="key" as="audit">
 			<tr {f:if(condition: '{audit.current} == {audit.required}', then: 'class="active"')} >
 				<td><replace:StrReplace string="{key}" searchFor="_" replaceWith=" " />
-				<f:if condition="{audit.current} >= {audit.required}">
+				<f:if condition="{audit.tempCur} >= {audit.tempReq}">
 				<f:then>
 					<f:image style="float: right; " src="EXT:spt_typo3audit/Resources/Public/Icons/green.png" width="10" alt="alt text" />
 				</f:then>

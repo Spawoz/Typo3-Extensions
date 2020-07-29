@@ -78,9 +78,15 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $typo3ver = strstr(VersionNumberUtility::getNumericTypo3Version(), ".",true );
         $typo3Config=$this->getVersioning();
         $extensionsList = $this->getAllExtensions($sysDetail['Typo3_Version']);
+        $serverDetails = [];
+        foreach($typo3Config[$typo3ver.".x"] as $key => $conf) { 
+            $conf['tempCur'] = trim($conf['current'],"M"); 
+            $conf['tempReq'] = trim($conf['required'],"M"); 
+            $serverDetails[$key] = $conf; 
+        }
         $arrDetails = array("sysDetail" => $sysDetail, 
                             "extensions" => $extensionsList, 
-                            "serverDetails" => $typo3Config[$typo3ver.".x"]
+                            "serverDetails" => $serverDetails
                         );
         $currentYear = date('Y',time());
         $this->view->assignMultiple([
