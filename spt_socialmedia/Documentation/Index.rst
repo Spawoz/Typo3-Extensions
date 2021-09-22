@@ -29,7 +29,7 @@ Social Media Widget
 		social media,share,social,widget,floatting 
 
 	:Copyright:
-		2017
+		2021
 
 	:Author:
 		Arun Chandran

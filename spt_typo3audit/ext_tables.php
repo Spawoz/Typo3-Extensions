@@ -13,7 +13,7 @@ call_user_func(
                 'spttypo3audit', // Submodule key
                 '', // Position
                 [
-                    'Audit' => 'list',
+                    SPT\SptTypo3audit\Controller\AuditController::class => 'list',
                 ],
                 [
                     'access' => 'user,group',

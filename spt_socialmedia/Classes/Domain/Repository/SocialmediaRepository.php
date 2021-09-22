@@ -17,12 +17,12 @@ namespace SPT\SptSocialmedia\Domain\Repository;
  */
 class SocialmediaRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-	// Order by BE sorting
+    // Order by BE sorting
     protected $defaultOrderings = array(        
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     );
 
-	/**
+    /**
      * Disable respecting of a storage pid within queries globally.
      */
     public function initializeObject()

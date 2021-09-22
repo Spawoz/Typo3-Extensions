@@ -9,11 +9,12 @@ call_user_func(
             'SPT.SptSocialmedia',
             'Sptsocialmedia',
             [
-                'Socialmedia' => 'list'
+                
+                SPT\SptSocialmedia\Controller\SocialmediaController::class => 'list'
             ],
             // non-cacheable actions
             [
-                'Socialmedia' => 'list'
+                SPT\SptSocialmedia\Controller\SocialmediaController::class => 'list'
             ]
         );
 

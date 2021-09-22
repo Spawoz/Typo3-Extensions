@@ -28,13 +28,13 @@ TYPO3 Audit
 		TYPO3,Audit,Report,extension,compatibility
 
 	:Copyright:
-		2019
+		2021
 
 	:Author:
-		Sreerag P
+		Arun Chandran
 
 	:Email:
-		sreerag@spawoz.com
+		arun@spawoz.com
 
 	:License:
 		This document is published under the Open Content License

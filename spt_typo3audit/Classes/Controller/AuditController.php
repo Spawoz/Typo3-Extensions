@@ -35,14 +35,15 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/typo3conf/ext/spt_typo3audit/Classes/Li
  */
 class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
     /**
-     * auditRepository
+     * Inject the auditRepository
      *
-     * @var \SPT\SptTypo3audit\Domain\Repository\AuditRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @param \SPT\SptTypo3audit\Domain\Repository\AuditRepository $auditRepository
      */
-    protected $auditRepository;
+    public function injectAuditRepository(\SPT\SptTypo3audit\Domain\Repository\AuditRepository $auditRepository)
+    {
+       $this->auditRepository = $auditRepository;
+    }
     
     
     /**
@@ -321,6 +322,40 @@ class AuditController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 ) ,
                 'MySQL' => array(
                     'required'=>'5.0-5.7',
+                    'current'=>$MySQLVersion[0],
+                ),
+                'Image_Magick' => array(
+                    'required'=>'6',
+                    'current'=>' 322'
+                ),
+                'Max_Execution_Time' => array(
+                    'required'=>'240',
+                    'current'=>ini_get('max_execution_time')
+                ),
+
+                'Memory_Limit' => array(
+                    'required'=>'128M',
+                    'current'=>ini_get('memory_limit')
+                ),
+                'Max_Input_Vars' => array(
+                    'required'=>'1500',
+                    'current'=>ini_get('max_input_vars') 
+                ),
+                'Upload_Max_Size' => array(
+                    'required'=>'200M',
+                    'current'=>ini_get('upload_max_filesize')
+                ),
+                'Post_Max_Size' =>array( 
+                    'required'=>'800M',
+                    'current'=>ini_get('post_max_size')
+                )
+            ),'11.x' => array(
+                'php' =>array(
+                    'required'=>'7.4',
+                    'current'=>substr(phpversion(), 0, 6)
+                ) ,
+                'MySQL' => array(
+                    'required'=>'5.7-6.7',
                     'current'=>$MySQLVersion[0],
                 ),
                 'Image_Magick' => array(

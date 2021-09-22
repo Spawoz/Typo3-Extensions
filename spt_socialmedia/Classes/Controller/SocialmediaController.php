@@ -1,6 +1,12 @@
 <?php
 namespace SPT\SptSocialmedia\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Annotation\Inject;
+use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+
 /***
  *
  * This file is part of the "Social Media Widget" Extension for TYPO3 CMS.
@@ -8,30 +14,24 @@ namespace SPT\SptSocialmedia\Controller;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2017 Arun Chandran <arun@spawoz.com>, Spawoz Technologies Pvt. Ltd
+ *  (c) 2021 Arun Chandran <arun@spawoz.com>, Spawoz Technologies Pvt. Ltd
  *
  ***/
-
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Annotation\Inject;
-use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Core\Utility\PathUtility;
-
 
 /**
  * SocialmediaController
  */
 class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-    /**
-     * socialmediaRepository
+  /**
+     * Inject the project repository
      *
-     * @var \SPT\SptSocialmedia\Domain\Repository\SocialmediaRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
+     * @param \SPT\SptSocialmedia\Domain\Repository\SocialmediaRepository
      */
-    protected $socialmediaRepository = null;
-
+    public function injectEventCalenderRepository(\SPT\SptSocialmedia\Domain\Repository\SocialmediaRepository $socialmediaRepository)
+    {
+       $this->socialmediaRepository = $socialmediaRepository;
+    }
     /**
      * action list
      *
@@ -41,9 +41,9 @@ class SocialmediaController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         $this->pageRenderer = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Page\\PageRenderer');
         $rootPageID = $GLOBALS['TSFE']->rootLine[0]['uid'];
-        $socialmedias = ( $rootPageID ) ? $this->socialmediaRepository->findByPid($rootPageID) : $this->socialmediaRepository->findAll();
-        foreach ($socialmedias as $key => $value) {
-            $linkData = explode(' ', $value->getLink());
+        $socialmedias = $this->socialmediaRepository->findAll();
+         foreach ($socialmedias as $key => $value) {
+          $linkData = explode(' ', $value->getLink());
             $target = $linkData[1];
             if( $value->getType() != 'phone'  && $value->getType() != 'envelope-o' && $value->getType() != 'file-o' && $value->getType() != 'link' ) {
                 if (!preg_match("~^(?:f|ht)tps?://~i", $linkData[0])) {                
