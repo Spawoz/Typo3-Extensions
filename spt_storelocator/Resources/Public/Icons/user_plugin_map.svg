@@ -1,0 +1,11 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+	<title>ext_icon</title>
+	<defs>
+		<image  width="48" height="48" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAAXNSR0IB2cksfwAAAd1QTFRFAAAA/wAA/2Zm/4eH/5iY/6io/4qK/6Sk/5CQ/3p6/xMT/1dX/5mZ/6ys/4uL/56e/5OT/4OD/yMj/wgI/3Fx/46O/6mp/6Ki/42N/2xs/wMD/y4u/0BA/2Fh//Dw/////8PD/09P/zY2/ycn/z8//2Nj/+bm/+vr/1ZW/zw8/w8P/zIy/0tL/5KS/+jo/0hI/zEx/wEB/+Hh/xsb/8HB/1NT/8rK/8bG/zk5/0FB/xQU/8/P/6+v/x0d/7Ky/9zc/1FR//b2/wcH/1pa/yoq/w4O/+/v/0RE/7Gx//r6/7Oz/35+/5WV/5qa/5eX/1tb/9LS/+rq/yYm/ygo/83N/5SU//Hx/3t7/8fH/1xc/9TU/yIi/+np/xgY/wkJ//n5/5aW/4SE//39/7S0/zc3/9/f/1hY/9PT//T0/zAw/+7u/0JC/wsL//z8/yEh/6Cg/9fX/25u/+Pj/319/52d/87O/76+/yUl/xoa/zs7/wwM//j4/+Li/0VF/1VV/wIC/3Nz/8LC/8zM/ysr/+3t/xwc/3x8/+zs/+Xl/0ZG/7Cw/97e/6ur/5yc/wYG//Ly//Pz/1BQ/+fn/yQk/xcX/6qq/5+f/5GR/3Bw/zU1/9ra//X1/xUV/zQ0/ywsI5xtEAAAAJ90Uk5TAP//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////ldSGngAAAkJJREFUeJzllulX00AUxfOsIihgLa3YulwVECsCBcGtiIpUQCuKQlHRiAtQRVTcdwQVcQX33b/VN2SZpE1y7AfP4RznQzI3c3+dm5l5p1EURaG/boqSk11HcgVy8zPxnwLzfPMX5HFbmF+wiGixr7ComNUS/9KA7ikJhpaF8oqLSpeHIwJYsXLVanBbs3ZdCVFZecV6oSo3RDfqQKRqUzU/qQnWxuqMSPX8YLM5bQOrRnuSLdhqe4dtbNlujgZYhe1ADXbYXzoO+OQwT9Fk8+9EM9mBCmCXHN8N7GmxAnvRmgEkOEWZNOwD2qxAewdlALQfOCANSeCgFUBnFnAIOCwNVUCXxd+KI1lAogM4Ki3dQLlUPSnKAkSmXmk5BhRKlSp1AI4DJ0zRx2tw0lSnEHMA1NOAcXqoP95g2ckzZ8kBoHNAgdHvOh+GXJmBdkdgEBjSu7E0XQAu1mkqgWFH4NIIcFnrXrnKk5jrNApyBKjJzHTtOlEncENTN2+5AJype7ZzG3eI7nKmWRXBoAtw7z7QJzqhB+JaCTwU90cYcwFEpsfiXu8X12o903ic3ADONEFin54IFQWeit+215INaOFMz4gmn2tyCnhBNAzVFaCXQJDo1WtN+YE3XAoD5A40ikxvEdUUF/o00cykB6DyGad3I4Z8D3xQ8dEDoE985D6b+/QFGP06RV4AZxpK1RrqG/A93esJqD+AtJS8TvjpCVAzIKuL8m2F7gj8SiZ/SxXo6W/LMMzNP5Q5B/z7b41cP3/+AFruYj3RML8uAAAAAElFTkSuQmCC"/>
+	</defs>
+	<style>
+	</style>
+	<g id="ext_icon">
+		<use id="_a_frm0,100" href="#img1" x="0" y="0"/>
+	</g>
+</svg>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:spt_storelocator/Resources/Private/Language/locallang.xlf" date="2023-03-23T11:39:19Z" product-name="spt_storelocator">
+		<header/>
+		<body>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator" resname="tx_sptstorelocator_domain_model_storelocator">
+				<source>Storelocator</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.titel" resname="tx_sptstorelocator_domain_model_storelocator.titel">
+				<source>Titel</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.vorschautext" resname="tx_sptstorelocator_domain_model_storelocator.vorschautext">
+				<source>Vorschautext</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.bild" resname="tx_sptstorelocator_domain_model_storelocator.bild">
+				<source>Bild</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.kategorie" resname="tx_sptstorelocator_domain_model_storelocator.kategorie">
+				<source>Kategorie</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.adresse" resname="tx_sptstorelocator_domain_model_storelocator.adresse">
+				<source>Adresse</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.geokoordinaten" resname="tx_sptstorelocator_domain_model_storelocator.geokoordinaten">
+				<source>Geokoordinaten</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.moreinfo" resname="tx_sptstorelocator_domain_model_storelocator.moreinfo">
+				<source>Weitere Informationen</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.lattitude" resname="tx_sptstorelocator_domain_model_storelocator.lattitude">
+				<source>Lattitude</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.longitude" resname="tx_sptstorelocator_domain_model_storelocator.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.nodatafound" resname="tx_sptstorelocator_domain_model_storelocator.nodatafound">
+				<source>Sorry, no records found!</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.apikeyerrorTitle" resname="tx_sptstorelocator_domain_model_storelocator.apikeyerrorTitle">
+				<source>Error!</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.apierrorMessageText" resname="tx_sptstorelocator_domain_model_storelocator.apierrorMessageText">
+				<source>No API key found. Please check your extension settings.</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.errorTitle" resname="tx_sptstorelocator_domain_model_storelocator.errorTitle">
+				<source>No Records</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.errorText" resname="tx_sptstorelocator_domain_model_storelocator.errorText">
+				<source>Sorry, no records found!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

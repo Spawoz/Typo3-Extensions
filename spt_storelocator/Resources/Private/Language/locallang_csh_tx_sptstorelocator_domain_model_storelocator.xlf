@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:spt_storelocator/Resources/Private/Language/locallang_csh_tx_sptstorelocator_domain_model_storelocator.xlf" date="2023-03-23T11:39:19Z" product-name="spt_storelocator">
+		<header/>
+		<body>
+			<trans-unit id="titel.description" resname="titel.description">
+				<source>titel</source>
+			</trans-unit>
+			<trans-unit id="vorschautext.description" resname="vorschautext.description">
+				<source>vorschautext</source>
+			</trans-unit>
+			<trans-unit id="bild.description" resname="bild.description">
+				<source>bild</source>
+			</trans-unit>
+			<trans-unit id="kategorie.description" resname="kategorie.description">
+				<source>kategorie</source>
+			</trans-unit>
+			<trans-unit id="adresse.description" resname="adresse.description">
+				<source>adresse</source>
+			</trans-unit>
+			<trans-unit id="geokoordinaten.description" resname="geokoordinaten.description">
+				<source>geokoordinaten</source>
+			</trans-unit>
+			<trans-unit id="moreinfo.description" resname="moreinfo.description">
+				<source>moreinfo</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

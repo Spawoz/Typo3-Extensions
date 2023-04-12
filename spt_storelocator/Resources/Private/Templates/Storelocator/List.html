@@ -1,0 +1,54 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="content">
+    <div class="container">
+        <f:flashMessages />
+        <f:if condition="{storelocators}">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="col-2">
+                                <f:translate key="tx_sptstorelocator_domain_model_storelocator.titel" />
+                            </th>
+                            <th class="col-5">
+                                <f:translate key="tx_sptstorelocator_domain_model_storelocator.vorschautext" />
+                            </th>
+                            <th class="col-1">
+                                <f:translate key="tx_sptstorelocator_domain_model_storelocator.bild" />
+                            </th>
+                            <th class="col-2">
+                                <f:translate key="tx_sptstorelocator_domain_model_storelocator.adresse" />
+                            </th>
+                            <th class="col-2">
+                                <f:translate key="tx_sptstorelocator_domain_model_storelocator.moreinfo" />
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <f:for each="{storelocators}" as="storelocator">
+                            <tr>
+                                <td class="col-2">{storelocator.titel}</td>
+                                <td class="col-5">{storelocator.vorschautext}</td>
+                                <td class="col-1">
+                                    <f:if condition="{storelocator.bild.originalResource.uid}">
+                                        <f:image src="{storelocator.bild.originalResource.uid}" treatIdAsReference="1" alt="{storelocator.bild.originalResource.name}" width="100c" height="100" />
+                                    </f:if>
+                                </td>
+                                <td class="col-2"><f:format.nl2br>{storelocator.adresse}</f:format.nl2br></td>
+                                <td class="col-2">
+                                    <f:if condition="{storelocator.moreinfo}">
+                                        <f:link.typolink parameter="{storelocator.moreinfo}">
+                                            <f:translate key="tx_sptstorelocator_domain_model_storelocator.moreinfo" />
+                                        </f:link.typolink>
+                                    </f:if>
+                                </td>
+                            </tr>
+                        </f:for>
+                    </tbody>
+                </table>
+            </div>
+        </f:if>
+    </div>
+</f:section>
+</html>

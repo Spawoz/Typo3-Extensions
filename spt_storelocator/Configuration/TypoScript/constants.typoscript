@@ -1,0 +1,28 @@
+plugin.tx_sptstorelocator_list {
+    view {
+        # cat=plugin.tx_sptstorelocator_list/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:spt_storelocator/Resources/Private/Templates/
+        # cat=plugin.tx_sptstorelocator_list/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:spt_storelocator/Resources/Private/Partials/
+        # cat=plugin.tx_sptstorelocator_list/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:spt_storelocator/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_sptstorelocator_list//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
+plugin.tx_sptstorelocator_map {
+    view {
+        # cat=plugin.tx_sptstorelocator_map/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:spt_storelocator/Resources/Private/Templates/
+        # cat=plugin.tx_sptstorelocator_map/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:spt_storelocator/Resources/Private/Partials/
+        # cat=plugin.tx_sptstorelocator_map/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:spt_storelocator/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_sptstorelocator_map//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}

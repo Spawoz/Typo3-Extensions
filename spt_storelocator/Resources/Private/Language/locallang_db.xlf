@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:spt_storelocator/Resources/Private/Language/locallang_db.xlf" date="2023-03-23T11:39:19Z" product-name="spt_storelocator">
+		<header/>
+		<body>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator" resname="tx_sptstorelocator_domain_model_storelocator">
+				<source>Store Details</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.titel" resname="tx_sptstorelocator_domain_model_storelocator.titel">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.vorschautext" resname="tx_sptstorelocator_domain_model_storelocator.vorschautext">
+				<source>Lead Text</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.bild" resname="tx_sptstorelocator_domain_model_storelocator.bild">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.kategorie" resname="tx_sptstorelocator_domain_model_storelocator.kategorie">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.adresse" resname="tx_sptstorelocator_domain_model_storelocator.adresse">
+				<source>Address</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.geokoordinaten" resname="tx_sptstorelocator_domain_model_storelocator.geokoordinaten">
+				<source>Geographical Coordinates</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.moreinfo" resname="tx_sptstorelocator_domain_model_storelocator.moreinfo">
+				<source>More Information</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.lattitude" resname="tx_sptstorelocator_domain_model_storelocator.lattitude">
+				<source>Lattitude</source>
+			</trans-unit>
+			<trans-unit id="tx_sptstorelocator_domain_model_storelocator.longitude" resname="tx_sptstorelocator_domain_model_storelocator.longitude">
+				<source>Longitude</source>
+			</trans-unit>
+			<trans-unit id="spt_storelocator.pi_flexform.sheetGeneral" resname="spt_storelocator.pi_flexform.sheetGeneral">
+				<source>General Settings</source>
+			</trans-unit>
+			<trans-unit id="spt_storelocator.flexform.pinImage" resname="spt_storelocator.flexform.pinImage">
+				<source>Map pin image file path</source>
+			</trans-unit>
+			<trans-unit id="spt_storelocator.flexform.centerLat" resname="spt_storelocator.flexform.centerLat">
+				<source>Map Center Latitude (Optional)</source>
+			</trans-unit>
+			<trans-unit id="spt_storelocator.flexform.centerLong" resname="spt_storelocator.flexform.centerLong">
+				<source>Map Center Longitude (Optional)</source>
+			</trans-unit>
+			<trans-unit id="spt_storelocator.flexform.category" resname="spt_storelocator.flexform.category">
+				<source>Select Category (if selected, only records belongs to these categories will be displayed in frontend)</source>
+			</trans-unit>
+			<trans-unit id="aPaletteDescription" resname="aPaletteDescription">
+				<source>Latitude and Longitude</source>
+			</trans-unit>
+			<trans-unit id="tx_spt_storelocator_list.name" resname="tx_spt_storelocator_list.name">
+				<source>Store Locator (List Widget)</source>
+			</trans-unit>
+			<trans-unit id="tx_spt_storelocator_list.description" resname="tx_spt_storelocator_list.description">
+				<source>Plugin to display the store records in a list/table view.</source>
+			</trans-unit>
+			<trans-unit id="tx_spt_storelocator_map.name" resname="tx_spt_storelocator_map.name">
+				<source>Store Locator (Map Widget)</source>
+			</trans-unit>
+			<trans-unit id="tx_spt_storelocator_map.description" resname="tx_spt_storelocator_map.description">
+				<source>Plugin to display the store records in a map view.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

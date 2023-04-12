@@ -1,0 +1,47 @@
+{
+    "name": "spt/spt-storelocator",
+    "type": "typo3-cms-extension",
+    "description": "Extension to manage store location data.",
+    "authors": [
+        {
+            "name": "Developer",
+            "role": "Developer"
+        }
+    ],
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "typo3/cms-core": "^11.5"
+    },
+    "require-dev": {
+        "typo3/testing-framework": "^6.9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SPT\\SptStorelocator\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SPT\\SptStorelocator\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "typo3-ter/spt-storelocator": "self.version"
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+        ]
+    },
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ".Build/public",
+            "extension-key": "spt_storelocator"
+        }
+    }
+}
